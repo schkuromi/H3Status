@@ -646,7 +646,28 @@ class AmmoCounter {
   }
 }
 
+for (const [key, value] of new URLSearchParams(window.location.search)) {
+  if (globalConfig[key] != undefined) {
+    if (typeof globalConfig[key] == "number") globalConfig[key] = Number(value);
+    if (typeof globalConfig[key] == "boolean")
+      globalConfig[key] = value == "true";
+  }
+}
+
 utils.set(":root", { "--scale": globalConfig.overlayScale });
+
+if (!globalConfig.showScorePanel) {
+  globalConfig.showEventLog = false;
+  globalConfig.showScoreCounter = false;
+  globalConfig.showHealth = false;
+  globalConfig.showLevelBar = false;
+  globalConfig.showPhaseBar = false;
+}
+
+if (!globalConfig.showAmmoPanel) {
+  globalConfig.showWeaponName = false;
+  globalConfig.showAmmoCounter = false;
+}
 
 const eventLog = new Log(Math.ceil(globalConfig.eventLogLength));
 const scoreCounter = new Counter(Math.ceil(globalConfig.scoreCounterDigits));
@@ -659,27 +680,15 @@ const ws = connect();
 document.getElementById("overlay").style.height =
   document.getElementById("score-panel").offsetHeight + "px";
 
-if (!globalConfig.showScorePanel) {
+if (!globalConfig.showScorePanel)
   utils.set("#score-panel", { display: "none" });
-  globalConfig.showEventLog = false;
-  globalConfig.showScoreCounter = false;
-  globalConfig.showHealth = false;
-  globalConfig.showLevelBar = false;
-  globalConfig.showPhaseBar = false;
-}
-
 if (!globalConfig.showEventLog) utils.set("#log", { display: "none" });
 if (!globalConfig.showScoreCounter) utils.set("#counter", { display: "none" });
 if (!globalConfig.showHealth) utils.set("#health-bar", { display: "none" });
 if (!globalConfig.showLevelBar) utils.set("#level-bar", { display: "none" });
 if (!globalConfig.showPhaseBar) utils.set("#phase-bar", { display: "none" });
 
-if (!globalConfig.showAmmoPanel) {
-  utils.set("#ammo-panel", { display: "none" });
-  globalConfig.showWeaponName = false;
-  globalConfig.showAmmoCounter = false;
-}
-
+if (!globalConfig.showAmmoPanel) utils.set("#ammo-panel", { display: "none" });
 if (!globalConfig.showWeaponName)
   utils.set("#weapon-left", { display: "none" });
 if (!globalConfig.showAmmoCounter)
