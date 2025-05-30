@@ -1,0 +1,261 @@
+:root {
+    /* Do not change this scale! */
+    /* Use config.js instead! */
+    --scale: 1;
+
+    --gap-size: calc(var(--scale) * 0.5rem);
+
+    --counter-size: calc(var(--scale) * 3rem);
+    --log-size: calc(var(--scale) * 1rem);
+    --log-length: 6;
+    --health-size: calc(var(--scale) * 0.5rem);
+
+    --level-size: calc(var(--scale) * 1rem);
+    --phase-size: calc(var(--scale) * 0.75rem);
+
+    --arrow-particle-size: calc(var(--scale) * 1.5rem);
+
+    --background-color: #0008;
+}
+
+*,
+::before,
+::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: "F2W";
+    src:
+        url(fonts/SfAlienEncounters.ttf) format("truetype"),
+        url(fonts/SfAlienEncountersItalic.ttf) format("truetype");
+    /* ascent-override: 80%; */
+}
+
+@font-face {
+    font-family: "F2W Solid";
+    src:
+        url(fonts/SfAlienEncountersSolid.ttf) format("truetype"),
+        url(fonts/SfAlienEncountersSolidItalic.ttf) format("truetype");
+    ascent-override: 80%;
+}
+
+body {
+    font-family: "Montserrat", sans-serif;
+    font-style: normal;
+    overflow: hidden;
+    padding: 8px;
+
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    align-items: flex-end;
+
+    /* background-color: #30343f; */
+}
+
+#overlay {
+    position: relative;
+    display: flex;
+    gap: var(--gap-size);
+    align-items: flex-end;
+    height: 216px;
+}
+
+.panel {
+    position: relative;
+    border-radius: 8px;
+    background-color: var(--background-color);
+    overflow: hidden;
+
+    display: flex;
+    flex-flow: column nowrap;
+    padding: var(--gap-size);
+}
+
+#score-panel {
+    flex-shrink: 0;
+}
+
+#counter {
+    position: relative;
+    width: min-content;
+    display: flex;
+    flex-flow: row nowrap;
+    padding: 0 calc(var(--counter-size) / 4);
+    margin: 0 calc(var(--counter-size) / -4);
+    margin-bottom: calc(var(--counter-size) / -6);
+    height: var(--counter-size);
+    overflow-y: hidden;
+
+    mask-image: linear-gradient(
+        to bottom,
+        transparent 0%,
+        white 10%,
+        white 90%,
+        transparent 100%
+    );
+}
+
+.counter-column {
+    display: flex;
+    width: min-content;
+    flex-flow: column nowrap;
+}
+
+.counter-digit {
+    text-align: center;
+    line-height: var(--counter-size);
+    flex-shrink: 0;
+    flex-grow: 0;
+    font-weight: 600;
+    font-size: var(--counter-size);
+
+    font-family: "F2W";
+    color: #fff;
+}
+
+#log {
+    position: relative;
+    min-height: calc(
+        var(--log-length) * var(--log-size) + calc(var(--log-size) * 0.1)
+    );
+    overflow: hidden;
+    min-width: calc(var(--log-size) * 16);
+}
+
+#log span {
+    position: absolute;
+    bottom: calc(var(--log-size) * -1);
+
+    height: var(--log-size);
+    flex-shrink: 0;
+    line-height: var(--log-size);
+    font-weight: 600;
+    font-size: var(--log-size);
+    text-wrap: nowrap;
+
+    color: #fff;
+}
+
+#health-bar {
+    margin-top: var(--gap-size);
+    height: var(--health-size);
+    background-color: #fff4;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+#health-bar-inner {
+    height: 100%;
+    border-radius: 2px;
+    background-color: #fff;
+    width: 100%;
+}
+
+#level-bar {
+    height: var(--level-size);
+}
+
+#phase-bar {
+    height: var(--phase-size);
+}
+
+.arrow-bar {
+    margin-top: var(--gap-size);
+    display: flex;
+    flex-flow: row nowrap;
+    /* padding: 0 0.125rem; */
+}
+
+.arrow-segment {
+    /* margin: 0 -0.125rem; */
+    background-color: #fff4;
+    height: 100%;
+    width: 100%;
+    flex: 1;
+    clip-path: polygon(
+        0% 0%,
+        calc(100% - calc(var(--level-size) * 0.33)) 0%,
+        100% 50%,
+        calc(100% - calc(var(--level-size) * 0.33)) 100%,
+        0% 100%,
+        calc(var(--level-size) * 0.33) 50%
+    );
+    transition: background-color 0.25s;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-family: "F2W Solid";
+    font-size: calc(var(--scale) * 0.8rem);
+
+    color: #fff0;
+}
+
+.arrow-take {
+    flex-grow: 0.33;
+    margin-right: calc(var(--gap-size) / -4);
+}
+
+#ammo-panel {
+    flex-flow: row nowrap;
+    height: 100%;
+}
+
+.weapon-name {
+    height: 100%;
+    writing-mode: vertical-rl;
+    font-size: var(--log-size);
+    font-weight: 600;
+    /* font-style: italic; */
+    text-wrap: nowrap;
+    color: #fff;
+
+    mask-image: linear-gradient(
+        to bottom,
+        white 0%,
+        white calc(100% - 1rem),
+        transparent 100%
+    );
+}
+
+.ammo-counter {
+    display: flex;
+    flex-flow: column wrap;
+    height: 100%;
+    max-height: 100%;
+    gap: calc(var(--gap-size) / 2);
+    overflow: hidden;
+}
+
+.ammo-counter-item {
+    object-fit: none;
+    object-position: left;
+    width: auto;
+    height: auto;
+    max-width: none;
+    max-height: none;
+    flex: 0 0 auto;
+}
+
+.arrow-particle {
+    position: absolute;
+    width: var(--arrow-particle-size);
+    height: calc(var(--arrow-particle-size) * 0.66);
+    background-color: white;
+
+    clip-path: polygon(
+        50% 0%,
+        100% 66%,
+        75% 66%,
+        75% 100%,
+        25% 100%,
+        25% 66%,
+        0% 66%
+    );
+}

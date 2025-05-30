@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@0,100..900;1,100..900&display=swap"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/animejs@4.0.0/lib/anime.iife.min.js"></script>
+    <script type="text/javascript" src="config.js"></script>
+    <script defer type="text/javascript" src="main.js"></script>
+  </head>
+  <body>
+    <div id="overlay">
+      <div id="score-panel" class="panel">
+        <div id="log"></div>
+        <div id="counter"></div>
+        <div id="health-bar"><div id="health-bar-inner"></div></div>
+
+        <div id="level-bar" class="arrow-bar">
+          <div class="arrow-segment arrow-take"></div>
+          <div class="arrow-segment">1</div>
+          <div class="arrow-segment arrow-take"></div>
+          <div class="arrow-segment">2</div>
+          <div class="arrow-segment arrow-take"></div>
+          <div class="arrow-segment">3</div>
+          <div class="arrow-segment arrow-take"></div>
+          <div class="arrow-segment">4</div>
+          <div class="arrow-segment arrow-take"></div>
+          <div class="arrow-segment">5</div>
+        </div>
+
+        <div id="phase-bar" class="arrow-bar">
+          <div class="arrow-segment"></div>
+          <div class="arrow-segment"></div>
+          <div class="arrow-segment"></div>
+        </div>
+      </div>
+
+      <div id="ammo-panel" class="panel">
+        <span id="weapon-left" class="weapon-name">NO WEAPON</span>
+        <div id="ammo-counter-left" class="ammo-counter"></div>
+      </div>
+    </div>
+
+    <template id="counter-column-template">
+      <div class="counter-column">
+        <span class="counter-digit">0</span>
+        <span class="counter-digit">1</span>
+        <span class="counter-digit">2</span>
+        <span class="counter-digit">3</span>
+        <span class="counter-digit">4</span>
+        <span class="counter-digit">5</span>
+        <span class="counter-digit">6</span>
+        <span class="counter-digit">7</span>
+        <span class="counter-digit">8</span>
+        <span class="counter-digit">9</span>
+        <span class="counter-digit">0</span>
+      </div>
+    </template>
+  </body>
+</html>
