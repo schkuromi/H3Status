@@ -37,25 +37,6 @@ namespace H3Status.Patches
 
             Server.ServerBehavior.SendMessage(sceneEventJSON);
         }
-
-        // [HarmonyPostfix]
-        // [HarmonyPatch(typeof(FVRWristMenu2), nameof(FVRWristMenu2.UpdateWristMenu))]
-        // private static void UpdateWristMenu(FVRWristMenu2 __instance)
-        // {
-        //     if (!__instance.m_isActive) return;
-        //     if (__instance.m_currentHand.OtherHand.CurrentInteractable is FVRPhysicalObject) return;
-
-        //     StringBuilder sb = new StringBuilder();
-
-        //     sb.AppendLine("LOADED MODS:");
-        //     foreach(var plugin in BepInEx.Bootstrap.Chainloader.PluginInfos)
-        //     {
-        //         sb.AppendLine($"{plugin.Value.Metadata.Name} - {plugin.Value.Metadata.GUID}");
-        //     }
-
-        //     __instance.TXT_HeldObject.verticalOverflow = UnityEngine.VerticalWrapMode.Overflow;
-        //     __instance.TXT_HeldObject.text = sb.ToString();
-        // }
     }
 
     [HarmonyPatch]

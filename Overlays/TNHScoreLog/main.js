@@ -507,71 +507,6 @@ class ArrowBar {
   }
 }
 
-// class AmmoCounter {
-//   constructor(size, type) {
-//     this.setAmmo(size, size, type);
-//   }
-
-//   setAmount(number) {
-//     number = Math.max(0, Math.min(this.capacity, number));
-//     while (number < this.size) this.removeOne();
-//     while (number > this.size) this.addOne();
-//   }
-
-//   addOne() {
-//     if (this.size >= this.capacity) return;
-//     animate(this.elements[this.size], {
-//       opacity: 1,
-//       x: [5, 0],
-//       duration: 150,
-//     });
-//     this.size++;
-//   }
-
-//   removeOne() {
-//     if (this.size == 0) return;
-//     this.size--;
-//     animate(this.elements[this.size], {
-//       opacity: 0,
-//       x: [0, 5],
-//       duration: 150,
-//     });
-//   }
-
-//   setAmmo(number, spent, capacity, roundType, roundClass) {
-//     if (this.element) this.element.remove();
-
-//     this.elements = [];
-//     this.capacity = capacity;
-//     this.size = number;
-//     this.spent = spent;
-
-//     this.element = document.createElement("div");
-//     this.element.className = "ammo-counter";
-//     utils.$("#ammo-panel")[0].append(this.element);
-
-//     for (let i = 0; i < this.capacity; i++) {
-//       const [$template] = utils.$("#ammo-counter-item-template");
-//       const item = $template.content.cloneNode(true).firstElementChild;
-//       item.querySelector(".ammo-counter-icon").src = AmmoCounter.getAmmoIcon(
-//         roundType,
-//         roundClass,
-//         i < spent,
-//       );
-
-//       if (i >= this.size) item.style.opacity = 0;
-//       this.element.append(item);
-//       this.elements.push(item);
-//     }
-//   }
-
-//   static getAmmoIcon(roundType, roundClass, spent) {
-//     return spent
-//       ? `icons_medium/${roundType}_Shell.webp`
-//       : `icons_medium/${roundType}_${roundClass}.webp`;
-//   }
-// }
-
 class AmmoCounter {
   constructor(id) {
     this.element = document.getElementById(id);
@@ -647,8 +582,6 @@ class AmmoCounter {
     const el = this.elements[this.current + this.spent];
     el.src = AmmoCounter.getAmmoIcon(this.roundType, this.roundClass, false);
 
-    // console.log(`addRound: showing ${this.current + this.spent}`);
-
     animate(el, {
       opacity: 1,
       x: [5, 0],
@@ -660,8 +593,6 @@ class AmmoCounter {
   removeRound() {
     if (this.current + this.spent <= 0) return;
     this.current > 0 ? this.current-- : this.spent--;
-
-    // console.log(`removeRound: hiding ${this.current + this.spent}`);
 
     animate(this.elements[this.current + this.spent], {
       opacity: 0,
@@ -675,8 +606,6 @@ class AmmoCounter {
     const el = this.elements[this.spent];
     el.src = AmmoCounter.getAmmoIcon(this.roundType, this.roundClass, true);
 
-    // console.log(`addSpent: spending ${this.spent}`);
-
     animate(el, {
       x: [-5, 0],
       opacity: 0.5,
@@ -689,8 +618,6 @@ class AmmoCounter {
   removeSpent() {
     if (this.spent == 0) return;
     const el = this.elements[this.spent - 1];
-
-    // console.log(`removeSpent: unspending ${this.spent - 1}`);
 
     if (this.current > 0) {
       el.src = AmmoCounter.getAmmoIcon(this.roundType, this.roundClass, false);

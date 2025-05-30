@@ -1,7 +1,6 @@
 using BepInEx;
 using BepInEx.Logging;
 using HarmonyLib;
-using WebSocketSharp;
 using WebSocketSharp.Server;
 
 namespace H3Status;
