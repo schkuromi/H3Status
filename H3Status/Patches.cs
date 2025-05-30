@@ -1,6 +1,5 @@
 using HarmonyLib;
 using SimpleJSON;
-// using System.Text;
 using FistVR;
 
 namespace H3Status.Patches
@@ -285,28 +284,28 @@ namespace H3Status.Patches
             float duration = 1f;
 
             switch (d)
-           	{
-               	case PowerUpDuration.Full:
-              		duration = 30f;
-              		break;
-               	case PowerUpDuration.Short:
-              		duration = 20f;
-              		break;
-               	case PowerUpDuration.VeryShort:
-              		duration = 10f;
-              		break;
-               	case PowerUpDuration.Blip:
-              		duration = 2f;
-              		break;
-               	case PowerUpDuration.SuperLong:
-              		duration = 40f;
-              		break;
-           	}
+            {
+                case PowerUpDuration.Full:
+                    duration = 30f;
+                    break;
+                case PowerUpDuration.Short:
+                    duration = 20f;
+                    break;
+                case PowerUpDuration.VeryShort:
+                    duration = 10f;
+                    break;
+                case PowerUpDuration.Blip:
+                    duration = 2f;
+                    break;
+                case PowerUpDuration.SuperLong:
+                    duration = 40f;
+                    break;
+            }
 
             if (DurationOverride > 0f)
-           	{
-          		duration = DurationOverride;
-           	}
+            {
+                duration = DurationOverride;
+            }
 
             var powerEventJSON = new JSONObject();
 
@@ -352,20 +351,20 @@ namespace H3Status.Patches
             catch { }
 
             if (fireArm.ObjectWrapper != null)
-			{
-				if (IM.HasSpawnedID(fireArm.ObjectWrapper.ItemID))
-				{
-					ItemSpawnerID spawnerID = IM.GetSpawnerID(fireArm.ObjectWrapper.ItemID);
-					weaponName = spawnerID.DisplayName;
-				}
-				else
-				{
-					weaponName = fireArm.ObjectWrapper.DisplayName;
-				}
-			}
+            {
+                if (IM.HasSpawnedID(fireArm.ObjectWrapper.ItemID))
+                {
+                    ItemSpawnerID spawnerID = IM.GetSpawnerID(fireArm.ObjectWrapper.ItemID);
+                    weaponName = spawnerID.DisplayName;
+                }
+                else
+                {
+                    weaponName = fireArm.ObjectWrapper.DisplayName;
+                }
+            }
 
-			if (fireArm.Magazine != null)
-			{
+            if (fireArm.Magazine != null)
+            {
                 maxCapacity += fireArm.Magazine.m_capacity;
                 currentAmmo += fireArm.Magazine.m_numRounds;
 

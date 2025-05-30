@@ -16,7 +16,10 @@ function onOpen() {
 
 function onClose() {
   eventLog.addItem("DISCONNECTED");
-  setTimeout(connect, 10000);
+  setTimeout(() => {
+    eventLog.queue = [];
+    connect();
+  }, 10000);
 }
 
 function onError() {
@@ -115,12 +118,12 @@ function handlePhaseEvent(event) {
       if (event.holdName) {
         eventLog.addItem(`NEXT TARGET: ${event.holdName}`, "#8cf", 10);
         // eventLog.addItem(`RESUPPLY AT: ${event.supplyNames[0]}`, "#8cf", 10);
-        eventLog.addItem(
-          `${event.count - event.level} HOLDS REMAINING`,
-          "#8cf",
-          10,
-        );
       }
+      eventLog.addItem(
+        `${event.count - event.level} HOLDS REMAINING`,
+        "#8cf",
+        10,
+      );
       break;
     }
     case "Hold": {

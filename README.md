@@ -7,7 +7,7 @@ Also included in this repository are example [Overlays](https://github.com/Takin
 
 ## Installing
 
-- This plugin is available through [Thunderstore](). Using a mod manager is recommended.
+- This plugin is available through [Thunderstore](https://thunderstore.io/c/h3vr/p/bacur/H3Status/). Using a mod manager is recommended.
 - If [BepInEx](https://github.com/BepInEx/BepInEx) is already installed, download the [latest release](https://github.com/TakingFire/H3Status/releases/latest) and place it in the `BepInEx/plugins` folder.
 
 ## Using the Plugin
