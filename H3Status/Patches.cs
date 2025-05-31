@@ -93,56 +93,6 @@ namespace H3Status.Patches
 
             Server.ServerBehavior.SendMessage(phaseEventJSON);
         }
-
-        [HarmonyPrefix]
-        [HarmonyPatch(typeof(TNH_Manager), nameof(TNH_Manager.OnSosigAlert))]
-        private static void OnSosigAlert(TNH_Manager __instance)
-        {
-            if (__instance.Phase != TNH_Phase.Take) return;
-            if (__instance.m_alertedThisPhaseFlag) return;
-
-            var bonusEventJSON = new JSONObject();
-            bonusEventJSON["type"] = "TNHLostStealthBonus";
-            Server.ServerBehavior.SendMessage(bonusEventJSON);
-        }
-
-        [HarmonyPrefix]
-        [HarmonyPatch(typeof(TNH_Manager), nameof(TNH_Manager.OnSosigKill))]
-        private static void OnSosigKill(Sosig s, TNH_Manager __instance)
-        {
-            if (__instance.m_hasGuardBeenKilledThatWasAltered) return;
-
-            if (s.GetDiedFromIFF() == GM.CurrentPlayerBody.GetPlayerIFF() &&
-                __instance.Phase == TNH_Phase.Take && s.HasEverBeenAlerted() &&
-                __instance.m_holdPointGuards.Contains(s))
-            {
-                var bonusEventJSON = new JSONObject();
-                bonusEventJSON["type"] = "TNHLostStealthBonus";
-                Server.ServerBehavior.SendMessage(bonusEventJSON);
-            }
-        }
-
-        [HarmonyPrefix]
-        [HarmonyPatch(typeof(TNH_Manager), nameof(TNH_Manager.PlayerTookDamage))]
-        private static void TakePlayerTookDamageTake(TNH_Manager __instance)
-        {
-            if (__instance.m_tookDamageThisPhaseFlag) return;
-
-            var bonusEventJSON = new JSONObject();
-            bonusEventJSON["type"] = "TNHLostNoHitBonus";
-            Server.ServerBehavior.SendMessage(bonusEventJSON);
-        }
-
-        [HarmonyPrefix]
-        [HarmonyPatch(typeof(TNH_HoldPoint), nameof(TNH_HoldPoint.PlayerTookDamage))]
-        private static void PlayerTookDamageHold(TNH_HoldPoint __instance)
-        {
-            if (__instance.m_hasBeenDamagedThisPhase && __instance.m_hasBeenDamagedThisHold) return;
-
-            var bonusEventJSON = new JSONObject();
-            bonusEventJSON["type"] = "TNHLostNoHitBonus";
-            Server.ServerBehavior.SendMessage(bonusEventJSON);
-        }
     }
 
     [HarmonyPatch]
@@ -215,6 +165,57 @@ namespace H3Status.Patches
             scoreJSON["score"] = GetTotalScore();
 
             Server.ServerBehavior.SendMessage(scoreEventJSON);
+        }
+
+
+        [HarmonyPrefix]
+        [HarmonyPatch(typeof(TNH_Manager), nameof(TNH_Manager.OnSosigAlert))]
+        private static void OnSosigAlert(TNH_Manager __instance)
+        {
+            if (__instance.Phase != TNH_Phase.Take) return;
+            if (__instance.m_alertedThisPhaseFlag) return;
+
+            var bonusEventJSON = new JSONObject();
+            bonusEventJSON["type"] = "TNHLostStealthBonus";
+            Server.ServerBehavior.SendMessage(bonusEventJSON);
+        }
+
+        [HarmonyPrefix]
+        [HarmonyPatch(typeof(TNH_Manager), nameof(TNH_Manager.OnSosigKill))]
+        private static void OnSosigKill(Sosig s, TNH_Manager __instance)
+        {
+            if (__instance.m_hasGuardBeenKilledThatWasAltered) return;
+
+            if (s.GetDiedFromIFF() == GM.CurrentPlayerBody.GetPlayerIFF() &&
+                __instance.Phase == TNH_Phase.Take && s.HasEverBeenAlerted() &&
+                __instance.m_holdPointGuards.Contains(s))
+            {
+                var bonusEventJSON = new JSONObject();
+                bonusEventJSON["type"] = "TNHLostStealthBonus";
+                Server.ServerBehavior.SendMessage(bonusEventJSON);
+            }
+        }
+
+        [HarmonyPrefix]
+        [HarmonyPatch(typeof(TNH_Manager), nameof(TNH_Manager.PlayerTookDamage))]
+        private static void TakePlayerTookDamageTake(TNH_Manager __instance)
+        {
+            if (__instance.m_tookDamageThisPhaseFlag) return;
+
+            var bonusEventJSON = new JSONObject();
+            bonusEventJSON["type"] = "TNHLostNoHitBonus";
+            Server.ServerBehavior.SendMessage(bonusEventJSON);
+        }
+
+        [HarmonyPrefix]
+        [HarmonyPatch(typeof(TNH_HoldPoint), nameof(TNH_HoldPoint.PlayerTookDamage))]
+        private static void PlayerTookDamageHold(TNH_HoldPoint __instance)
+        {
+            if (__instance.m_hasBeenDamagedThisPhase && __instance.m_hasBeenDamagedThisHold) return;
+
+            var bonusEventJSON = new JSONObject();
+            bonusEventJSON["type"] = "TNHLostNoHitBonus";
+            Server.ServerBehavior.SendMessage(bonusEventJSON);
         }
     }
 
