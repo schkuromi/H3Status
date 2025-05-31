@@ -1,6 +1,6 @@
 # Example Overlays
 
-### [Basic Template](Basic/)
+### [Basic Template](Template/)
 
 A very simple overlay with detailed comments. If you are interested in building an overlay, start here.
 
