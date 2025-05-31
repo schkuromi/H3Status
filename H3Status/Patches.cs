@@ -113,8 +113,8 @@ namespace H3Status.Patches
             if (__instance.m_hasGuardBeenKilledThatWasAltered) return;
 
             if (s.GetDiedFromIFF() == GM.CurrentPlayerBody.GetPlayerIFF() &&
-                __instance.Phase == TNH_Phase.Take &&
-                s.HasEverBeenAlerted())
+                __instance.Phase == TNH_Phase.Take && s.HasEverBeenAlerted() &&
+                __instance.m_holdPointGuards.Contains(s))
             {
                 var bonusEventJSON = new JSONObject();
                 bonusEventJSON["type"] = "TNHLostStealthBonus";
@@ -229,9 +229,9 @@ namespace H3Status.Patches
 
             healthEventJSON["type"] = "playerDamage";
             var healthJSON = healthEventJSON["status"].AsObject;
-            healthJSON["amount"] = DamagePoints;
-            healthJSON["health"] = __instance.Health;
-            healthJSON["maxHealth"] = __instance.m_startingHealth;
+            healthJSON["amount"] = -(int)DamagePoints;
+            healthJSON["health"] = (int)__instance.Health;
+            healthJSON["maxHealth"] = (int)__instance.m_startingHealth;
 
             Server.ServerBehavior.SendMessage(healthEventJSON);
         }
@@ -244,9 +244,25 @@ namespace H3Status.Patches
 
             healthEventJSON["type"] = "playerDamage";
             var healthJSON = healthEventJSON["status"].AsObject;
-            healthJSON["amount"] = -(__instance.m_startingHealth * f);
-            healthJSON["health"] = __instance.Health;
-            healthJSON["maxHealth"] = __instance.m_startingHealth;
+            healthJSON["amount"] = -(int)(__instance.m_startingHealth * f);
+            healthJSON["health"] = (int)__instance.Health;
+            healthJSON["maxHealth"] = (int)__instance.m_startingHealth;
+
+            Server.ServerBehavior.SendMessage(healthEventJSON);
+        }
+
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(FVRPlayerBody), nameof(FVRPlayerBody.Init))]
+        [HarmonyPatch(typeof(FVRPlayerBody), nameof(FVRPlayerBody.SetHealthThreshold))]
+        private static void SetHealthThreshold(FVRPlayerBody __instance)
+        {
+            var healthEventJSON = new JSONObject();
+
+            healthEventJSON["type"] = "playerHeal";
+            var healthJSON = healthEventJSON["status"].AsObject;
+            healthJSON["amount"] = 0;
+            healthJSON["health"] = (int)__instance.Health;
+            healthJSON["maxHealth"] = (int)__instance.m_startingHealth;
 
             Server.ServerBehavior.SendMessage(healthEventJSON);
         }
@@ -259,9 +275,9 @@ namespace H3Status.Patches
 
             healthEventJSON["type"] = "playerHeal";
             var healthJSON = healthEventJSON["status"].AsObject;
-            healthJSON["amount"] = __instance.m_startingHealth * f;
-            healthJSON["health"] = __instance.Health;
-            healthJSON["maxHealth"] = __instance.m_startingHealth;
+            healthJSON["amount"] = (int)(__instance.m_startingHealth * f);
+            healthJSON["health"] = (int)__instance.Health;
+            healthJSON["maxHealth"] = (int)__instance.m_startingHealth;
 
             Server.ServerBehavior.SendMessage(healthEventJSON);
         }

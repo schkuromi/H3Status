@@ -9,7 +9,7 @@
     <TargetFramework>net35</TargetFramework>
     <AssemblyName>H3Status</AssemblyName>
     <Product>H3Status</Product>
-    <Version>0.1.0</Version>
+    <Version>0.1.1</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
     <RestoreAdditionalProjectSources>
