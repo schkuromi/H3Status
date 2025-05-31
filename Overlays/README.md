@@ -1,6 +1,13 @@
 # Example Overlays
 
-### TNH Score Log
+### [Basic Template](Basic/)
+
+A very simple overlay with detailed comments. If you are interested in building an overlay, start here.
+
+### [TNH Score Log](TNHScoreLog/)
+
+A Take and Hold focused overlay that uses all the information currently exposed by H3Status.\
+Featuring a score counter, hold progress, and icons for every ammo type in the game.
 
 > ![Preview Image](https://github.com/user-attachments/assets/2528f85c-0fa1-4e1d-9832-5d3e35604092)
 

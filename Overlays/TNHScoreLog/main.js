@@ -98,7 +98,6 @@ function handlePhaseEvent(event) {
   if (!globalConfig.showLevelBar) return;
   if (event.count < 5) levelBar.setLength(event.count * 2);
 
-  console.log(event);
   switch (event.phase) {
     case "Take": {
       phaseBar.reset();
@@ -397,7 +396,6 @@ class CounterColumn {
       duration: 0,
     });
 
-    // const height = utils.get(":root", "--counter-size", false);
     const height =
       document.getElementsByClassName("counter-digit")[0].clientHeight;
     const maxHeight = height * 10;
